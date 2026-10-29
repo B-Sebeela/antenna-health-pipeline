@@ -1,0 +1,22 @@
+credentials:
+  usernames:
+    admin:
+      email: admin@antenna.local
+      name: System Admin
+      password: admin123
+    operator:
+      email: operator@antenna.local
+      name: Control Operator
+      password: operator123
+    viewer:
+      email: viewer@antenna.local
+      name: Read Only Viewer
+      password: viewer123
+
+cookie:
+  expiry_days: 1
+  key: antenna_health_sig_key_change_me
+  name: antenna_health_auth
+
+preauthorized:
+  emails: []

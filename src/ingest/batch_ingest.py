@@ -23,11 +23,6 @@ Pipeline:
             v
        pipeline run record
 
-This module currently handles .ffe far-field data.
-
-S-parameter (.s7p) ingestion is handled separately by
-sparam_parser.py and will be integrated into the complete
-scenario pipeline later.
 """
 
 from __future__ import annotations
@@ -68,36 +63,10 @@ DEFAULT_PROCESSED_DIR = Path("data/processed")
 DEFAULT_DB_PATH = Path("data/antenna_health.db")
 
 
-# ============================================================================
-# DISCOVER FFE FILES
-# ============================================================================
-
 def discover_ffe_files(
     raw_dir: str | Path,
 ) -> list[Path]:
-    """
-    Recursively find all .ffe files inside the raw-data directory.
 
-    Example:
-
-        data/raw/
-            H01_NOM/
-                H01_NOM.ffe
-
-            MF01_L_PLUS/
-                MF01_L_PLUS.ffe
-
-            MF02_L_MINUS/
-                MF02_L_MINUS.ffe
-
-            M01_FEED_OFFSET/
-                M01_FEED_OFFSET.ffe
-
-    Returns
-    -------
-    list[Path]
-        Sorted list of discovered FFE files.
-    """
 
     raw_dir = Path(raw_dir)
 
@@ -128,25 +97,6 @@ def derive_scenario_id(
     ffe_path: Path,
     raw_dir: Path,
 ) -> str:
-    """
-    Determine the scenario ID from the FFE file location.
-
-    If the file is inside a scenario folder:
-
-        data/raw/H01_NOM/H01_NOM.ffe
-
-    the scenario ID becomes:
-
-        H01_NOM
-
-    If the file is directly inside data/raw:
-
-        data/raw/farfield_1.ffe
-
-    the scenario ID becomes:
-
-        farfield_1
-    """
 
     ffe_path = ffe_path.resolve()
     raw_dir = raw_dir.resolve()
@@ -898,14 +848,7 @@ def build_argument_parser() -> argparse.ArgumentParser:
     return parser
 
 
-# ============================================================================
-# MAIN
-# ============================================================================
-
 def main() -> None:
-    """
-    Main command-line entry point.
-    """
 
     parser = build_argument_parser()
 
@@ -918,10 +861,6 @@ def main() -> None:
         overwrite=args.overwrite,
     )
 
-
-# ============================================================================
-# SCRIPT ENTRY POINT
-# ============================================================================
 
 if __name__ == "__main__":
     main()
